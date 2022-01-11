@@ -24,6 +24,7 @@ to run the application locally:
 * care and precision and attention to detail that I'd normally use
 * no retry logic for github failures
 * client error handling is not robust
+* comments & javadoc
 
 ## decisions
 
