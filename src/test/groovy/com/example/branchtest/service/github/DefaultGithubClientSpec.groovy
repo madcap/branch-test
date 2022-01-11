@@ -12,7 +12,7 @@ import com.example.branchtest.model.github.User
 
 class DefaultGithubClientSpec extends Specification {
 
-    private static final String USER_ID = 'user-foo'
+    private static final String USER_NAME = 'user-foo'
 
     private RestTemplate mockRestTemplate = Mock()
 
@@ -27,13 +27,13 @@ class DefaultGithubClientSpec extends Specification {
 
     def 'test - getUser - happy path'() {
         when:
-        def result = client.getUser(USER_ID)
+        def result = client.getUser(USER_NAME)
 
         then:
         result == user
 
         and:
-        1 * mockRestTemplate.exchange("/$USER_ID", HttpMethod.GET, null, User) >> responseEntity
+        1 * mockRestTemplate.exchange("/$USER_NAME", HttpMethod.GET, null, User) >> responseEntity
         0 * _
     }
 
@@ -42,7 +42,7 @@ class DefaultGithubClientSpec extends Specification {
         def exception = new HttpStatusCodeException(HttpStatus.FORBIDDEN) {}
 
         when:
-        client.getUser(USER_ID)
+        client.getUser(USER_NAME)
 
         then:
         def e = thrown(NotFoundException)
@@ -50,7 +50,7 @@ class DefaultGithubClientSpec extends Specification {
         e.message == 'access is over quota'
 
         and:
-        1 * mockRestTemplate.exchange("/$USER_ID", HttpMethod.GET, null, User) >> { throw exception }
+        1 * mockRestTemplate.exchange("/$USER_NAME", HttpMethod.GET, null, User) >> { throw exception }
         0 * _
     }
 

@@ -25,9 +25,9 @@ class DefaultGithubClient implements GithubClient{
     // TODO - consolidate duplicate code around exception handling
 
     @Override
-    User getUser(final String userId) throws NotFoundException, OverQuotaException {
+    User getUser(final String username) throws NotFoundException, OverQuotaException {
         try {
-            ResponseEntity<User> response = restTemplate.exchange("/$userId", HttpMethod.GET, null, User)
+            ResponseEntity<User> response = restTemplate.exchange("/$username", HttpMethod.GET, null, User)
             return response.body
         }
         catch(HttpStatusCodeException e) {
@@ -38,16 +38,16 @@ class DefaultGithubClient implements GithubClient{
                 LOGGER.info("github access currently over quota")
                 throw new NotFoundException("access is over quota", e)
             }
-            LOGGER.error("unhandled error getting user {}", userId)
-            throw new RuntimeException("unhandled error getting gitlab user", e)
+            LOGGER.error("unhandled error getting user {}", username)
+            throw new RuntimeException("unhandled error getting github user", e)
         }
     }
 
     @Override
-    List<Repository> getRepositories(final String userId) throws NotFoundException, OverQuotaException {
+    List<Repository> getRepositories(final String username) throws NotFoundException, OverQuotaException {
         List<Repository> repos = []
         try {
-            ResponseEntity<List> response = restTemplate.exchange("/$userId/repos", HttpMethod.GET, null, List)
+            ResponseEntity<List> response = restTemplate.exchange("/$username/repos", HttpMethod.GET, null, List)
             // annoying handling because repos returns a raw list structure rather than an object
             // this could blow up in a lot of ways, with more time I'd have more robust handling here
             response.body.each { repo ->
@@ -64,8 +64,8 @@ class DefaultGithubClient implements GithubClient{
                 LOGGER.info("github access currently over quota")
                 throw new NotFoundException("access is over quota", e)
             }
-            LOGGER.error("unhandled error getting user repos for {}", userId)
-            throw new RuntimeException("unhandled error getting gitlab user repos", e)
+            LOGGER.error("unhandled error getting user repos for {}", username)
+            throw new RuntimeException("unhandled error getting github user repos", e)
         }
 
         return repos

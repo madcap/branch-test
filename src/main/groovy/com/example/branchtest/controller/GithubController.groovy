@@ -22,13 +22,13 @@ class GithubController {
     @Autowired
     private GithubClient githubClient
 
-    @RequestMapping(value = "/v1/user/{userId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/v1/user/{username}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody GithubResponse getGithubUserAndRepos(
-        @PathVariable("userId") String userId
+        @PathVariable("username") String username
     ) {
         // TODO - catch not found or over quota, use custom status code instead of returning 500 (controller advice)
-        User user = githubClient.getUser(userId)
-        List<Repository> repositories = githubClient.getRepositories(userId)
+        User user = githubClient.getUser(username)
+        List<Repository> repositories = githubClient.getRepositories(username)
 
         GithubResponse response = new GithubResponse()
         response.username = user.login

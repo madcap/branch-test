@@ -19,9 +19,11 @@ to run the application locally:
 * integration tests for GithubClient (tests that actually call real github)
 * service layer between controller and client that performs object conversion
 * in-depth testing for edge cases and error scenarios
-* null input checking
+* misisng null input checking
 * actual testing for over-quota, just read in the doco that 403 means over-quota, haven't tested it
-* care and precision and attention to detail that I'd normally use (ie inconsistent labeling of username vs userid)
+* care and precision and attention to detail that I'd normally use
+* no retry logic for github failures
+* client error handling is not robust
 
 ## decisions
 
@@ -29,6 +31,6 @@ to run the application locally:
 * spring boot - familiar with it
 * gradle - more familiar with it than maven
 * spock - excellent unit testing framework
-* not using an existing gitlab library - limited time, went with what I already knew
+* not using an existing github library - limited time, went with what I already knew
 
 
