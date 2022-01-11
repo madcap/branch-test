@@ -26,7 +26,7 @@ class GithubController {
     @ResponseBody GithubResponse getGithubUserAndRepos(
         @PathVariable("username") String username
     ) {
-        // TODO - catch not found or over quota, use custom status code instead of returning 500 (controller advice)
+        // if these throw an exception it's handled in GithubControllerErrorHandler
         User user = githubClient.getUser(username)
         List<Repository> repositories = githubClient.getRepositories(username)
 

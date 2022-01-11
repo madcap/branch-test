@@ -13,7 +13,6 @@ to run the application locally:
 
 ## cut for time
 
-* controller setting response status code based on exception type (not found, over quota both result in 500 right now with un-helpful message)
 * duplicate code in github client
 * unit tests in DefaultGithubClientSpec
 * integration tests for GithubClient (tests that actually call real github)

@@ -32,6 +32,7 @@ class DefaultGithubClient implements GithubClient{
         }
         catch(HttpStatusCodeException e) {
             if(e.statusCode == HttpStatus.NOT_FOUND) {
+                LOGGER.info("github user not found for {}", username)
                 throw new NotFoundException("github user not found", e)
             }
             if(e.statusCode == HttpStatus.FORBIDDEN) {
@@ -58,6 +59,7 @@ class DefaultGithubClient implements GithubClient{
         }
         catch(HttpStatusCodeException e) {
             if(e.statusCode == HttpStatus.NOT_FOUND) {
+                LOGGER.info("github user repos not found for {}", username)
                 throw new NotFoundException("github user repos not found", e)
             }
             if(e.statusCode == HttpStatus.FORBIDDEN) {
